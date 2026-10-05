@@ -9,9 +9,9 @@ export default function Navbar() {
   return (
     <header
       id='header'
-      className='text-white fixed w-full top-0 left-0 bg-black z-50 h-fit pb-2 lg:pb-3 before:absolute before:select-none before:-z-10 before:left-0 before:w-full before:h-full before:[box-shadow:_0_20px_40px_#ff443320] before:transition-opacity before:ease-in-out before:duration-500 before:opacity-0'
+      className='text-white fixed w-full top-0 left-0 bg-black z-50 h-fit pb-2 lg:pb-3 before:absolute before:select-none before:-z-10 before:left-0 before:w-full before:h-full before:[box-shadow:0_20px_40px_#ff443320] before:transition-opacity before:ease-in-out before:duration-500 before:opacity-0'
     >
-      <div className='md:px-10 lg:px-[60px] grid grid-cols-2 lg:grid-cols-3 gap-1 px-10'>
+      <div className='md:px-10 lg:px-15 grid grid-cols-2 lg:grid-cols-3 gap-1 px-10'>
         <Link href='/'>
           <p className='text-xl font-black tracking-tight leading-6 text-left select-none mt-3 text-husl-main'>HUSL</p>
         </Link>
@@ -19,7 +19,7 @@ export default function Navbar() {
         <button
           type='button'
           aria-label='Toggle mobile menu'
-          className={`lg:hidden flex w-6 h-7 flex-col justify-between absolute top-[10px] right-10 md:right-16 items-start ${open ? '' : 'hover:opacity-80'}`}
+          className={`lg:hidden flex w-6 h-7 flex-col justify-between absolute top-2.5 right-10 md:right-16 items-start ${open ? '' : 'hover:opacity-80'}`}
           onClick={() => setOpen(!open)}
         >
           <span
@@ -37,7 +37,7 @@ export default function Navbar() {
           <Link href='/' className='hover:fill-husl-main cursor-pointer duration-200 transition-colors fill-white text-center group px-2'>
             <svg
               xmlns='http://www.w3.org/2000/svg'
-              className='group-hover:w-[14px] group-hover:h-[14px] transition-all duration-200 ease-in'
+              className='group-hover:w-3.5 group-hover:h-3.5 transition-all duration-200 ease-in'
               viewBox='0 0 48 48'
               width='12px'
               height='12px'
@@ -49,7 +49,7 @@ export default function Navbar() {
           <Link href='/' className='hover:fill-husl-main cursor-pointer duration-200 transition-colors fill-white text-center group px-2'>
             <svg
               xmlns='http://www.w3.org/2000/svg'
-              className='group-hover:w-[14px] group-hover:h-[14px] transition-all duration-200 ease-in'
+              className='group-hover:w-3.5 group-hover:h-3.5 transition-all duration-200 ease-in'
               viewBox='0 0 24 24'
               width='12px'
               height='12px'
@@ -61,7 +61,7 @@ export default function Navbar() {
           <Link href='/' className='hover:fill-husl-main cursor-pointer duration-200 transition-colors fill-white text-center group px-1'>
             <svg
               xmlns='http://www.w3.org/2000/svg'
-              className='group-hover:w-[14px] group-hover:h-[14px] transition-all duration-200 ease-in'
+              className='group-hover:w-3.5 group-hover:h-3.5 transition-all duration-200 ease-in'
               viewBox='0 0 24 24'
               width='12px'
               height='12px'
