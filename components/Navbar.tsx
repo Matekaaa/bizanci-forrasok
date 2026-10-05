@@ -1,87 +1,123 @@
-/* eslint-disable react-hooks/rules-of-hooks */
 "use client"
+
+import Image from 'next/image'
 import Link from 'next/link'
 import React, { useState } from 'react'
+
+const navLinks = [
+  { href: '/', label: 'Főoldal' },
+  { href: '/kiadvanyok', label: 'Kiadványok' },
+  { href: '/hirek', label: 'Hírek & Események' },
+  { href: '/gondolatok', label: 'Gondolatok' },
+  { href: '/#tamogatas', label: 'Támogatás (1%)' },
+  { href: '/kapcsolat', label: 'Kapcsolat' },
+]
 
 export default function Navbar() {
   const [open, setOpen] = useState(false)
 
   return (
-    <header
-      id='header'
-      className='text-white fixed w-full top-0 left-0 bg-black z-50 h-fit pb-2 lg:pb-3 before:absolute before:select-none before:-z-10 before:left-0 before:w-full before:h-full before:[box-shadow:0_20px_40px_#ff443320] before:transition-opacity before:ease-in-out before:duration-500 before:opacity-0'
-    >
-      <div className='md:px-10 lg:px-15 grid grid-cols-2 lg:grid-cols-3 gap-1 px-10'>
-        <Link href='/'>
-          <p className='text-xl font-black tracking-tight leading-6 text-left select-none mt-3 text-husl-main'>HUSL</p>
+    <header className="fixed top-0 left-0 w-full z-50 bg-[#fcfbf9]/95 backdrop-blur-sm border-b border-stone-200">
+      <div className="max-w-6xl mx-auto px-6 h-20 flex items-center justify-between">
+        
+        {/* Logó + Pecsét kép (nagy képernyőn) */}
+        <Link 
+          href="/" 
+          onClick={() => setOpen(false)}
+          className="flex items-center gap-3.5 group select-none"
+        >
+          {/* Csak lg (1024px+) mérettől látható pecsét */}
+          <div className="hidden lg:block relative shrink-0">
+            <Image
+              src="/logo.jpg" // Ellenőrizd a public mappába mentett fájl nevét és kiterjesztését!
+              alt="Bizánci Forrás IC XC NIKA pecsét"
+              width={48}
+              height={48}
+              className="w-12 h-12 rounded-full object-cover border border-amber-900/20 transition-transform duration-300 group-hover:scale-105"
+              priority
+            />
+          </div>
+
+          <div className="flex flex-col">
+            <span className="font-serif text-xl sm:text-2xl tracking-tight text-stone-900 group-hover:text-amber-900 transition-colors">
+              Bizánci Forrás
+            </span>
+            <span className="text-[10px] uppercase tracking-[0.2em] text-stone-500 font-medium">
+              Magyar Ortodox Egyesület
+            </span>
+          </div>
         </Link>
 
+        {/* Asztali navigáció */}
+        <nav className="hidden lg:flex items-center space-x-7">
+          {navLinks.map((link) => (
+            <Link
+              key={link.href}
+              href={link.href}
+              className={`text-xs uppercase tracking-tight font-medium transition-colors ${
+                link.href.includes('tamogatas')
+                  ? 'text-amber-900 hover:text-amber-700 font-semibold border-b border-amber-900/40 pb-0.5'
+                  : 'text-stone-700 hover:text-stone-950'
+              }`}
+            >
+              {link.label}
+            </Link>
+          ))}
+        </nav>
+
+        {/* Közösségi média & Email ikonok (Desktop) */}
+        <div className="hidden lg:flex items-center space-x-5 text-stone-500">
+          <a
+            href="https://www.facebook.com/moe1949"
+            target="_blank"
+            rel="noopener noreferrer"
+            aria-label="Facebook"
+            className="hover:text-stone-900 transition-colors"
+          >
+            <svg className="w-4 h-4 fill-current" viewBox="0 0 24 24">
+              <path d="M22 12c0-5.523-4.477-10-10-10S2 6.477 2 12c0 4.991 3.657 9.128 8.438 9.878v-6.987h-2.54V12h2.54V9.797c0-2.506 1.492-3.89 3.777-3.89 1.094 0 2.238.195 2.238.195v2.46h-1.26c-1.243 0-1.63.771-1.63 1.562V12h2.773l-.443 2.89h-2.33v6.988C18.343 21.128 22 16.991 22 12z" />
+            </svg>
+          </a>
+          <a
+            href="mailto:info@bizanciforras.hu"
+            aria-label="Email"
+            className="hover:text-stone-900 transition-colors"
+          >
+            <svg className="w-4 h-4 fill-current" viewBox="0 0 24 24">
+              <path d="M1.5 8.67v8.58a3 3 0 0 0 3 3h15a3 3 0 0 0 3-3V8.67l-8.928 5.493a3 3 0 0 1-3.144 0L1.5 8.67z" />
+              <path d="M22.5 6.908V6.75a3 3 0 0 0-3-3h-15a3 3 0 0 0-3 3v.158l9.714 5.978a1.5 1.5 0 0 0 1.572 0L22.5 6.908z" />
+            </svg>
+          </a>
+        </div>
+
+        {/* Mobil hamburger ikon */}
         <button
-          type='button'
-          aria-label='Toggle mobile menu'
-          className={`lg:hidden flex w-6 h-7 flex-col justify-between absolute top-2.5 right-10 md:right-16 items-start ${open ? '' : 'hover:opacity-80'}`}
           onClick={() => setOpen(!open)}
+          className="lg:hidden p-2 text-stone-800 hover:text-stone-950 focus:outline-none"
+          aria-label="Menü nyitása/zárása"
         >
-          <span
-            className={`h-1 w-full bg-white rounded-lg transform transition duration-300 ease-in-out ${open ? 'rotate-45 translate-y-3' : ''}`}
-          />
-          <span
-            className={`h-1 w-full bg-white rounded-lg transition-all duration-300 ease-in-out ${open ? 'opacity-0' : 'w-full'}`}
-          />
-          <span
-            className={`h-1 bg-white rounded-lg transform transition duration-300 ease-in-out ${open ? '-rotate-45 -translate-y-3 w-6' : 'w-4'}`}
-          />
+          <div className="w-6 h-5 flex flex-col justify-between">
+            <span className={`h-0.5 w-full bg-stone-800 rounded transition-all duration-300 origin-left ${open ? 'rotate-45 translate-x-0.5' : ''}`} />
+            <span className={`h-0.5 w-full bg-stone-800 rounded transition-all duration-200 ${open ? 'opacity-0' : 'opacity-100'}`} />
+            <span className={`h-0.5 w-full bg-stone-800 rounded transition-all duration-300 origin-left ${open ? '-rotate-45 translate-x-0.5' : ''}`} />
+          </div>
         </button>
+      </div>
 
-        <div className='hidden lg:flex lg:items-center lg:justify-end lg:col-span-1 gap-3'>
-          <Link href='/' className='hover:fill-husl-main cursor-pointer duration-200 transition-colors fill-white text-center group px-2'>
-            <svg
-              xmlns='http://www.w3.org/2000/svg'
-              className='group-hover:w-3.5 group-hover:h-3.5 transition-all duration-200 ease-in'
-              viewBox='0 0 48 48'
-              width='12px'
-              height='12px'
+      {/* Lenyíló mobil panel */}
+      <div className={`lg:hidden transition-all duration-300 overflow-hidden border-b border-stone-200 bg-[#fcfbf9] ${open ? 'max-h-96 opacity-100 py-6 px-8' : 'max-h-0 opacity-0 py-0 px-8'}`}>
+        <nav className="flex flex-col space-y-4">
+          {navLinks.map((link) => (
+            <Link
+              key={link.href}
+              href={link.href}
+              onClick={() => setOpen(false)}
+              className="text-sm font-serif tracking-wider text-stone-800 hover:text-amber-900 transition-colors py-1"
             >
-              <path d='M 24 4 C 12.972066 4 4 12.972074 4 24 C 4 35.027926 12.972066 44 24 44 C 35.027934 44 44 35.027926 44 24 C 44 12.972074 35.027934 4 24 4 z M 24 7 C 33.406615 7 41 14.593391 41 24 C 41 32.380773 34.967178 39.306373 27 40.720703 L 27 29 L 30.625 29 C 31.129 29 31.555188 28.623047 31.617188 28.123047 L 31.992188 25.123047 C 32.028188 24.839047 31.938047 24.553891 31.748047 24.337891 C 31.559047 24.122891 31.287 24 31 24 L 27 24 L 27 20.5 C 27 19.397 27.897 18.5 29 18.5 L 31 18.5 C 31.552 18.5 32 18.053 32 17.5 L 32 14.125 C 32 13.607 31.604844 13.174906 31.089844 13.128906 C 31.030844 13.123906 29.619984 13 27.833984 13 C 23.426984 13 21 15.616187 21 20.367188 L 21 24 L 17 24 C 16.448 24 16 24.447 16 25 L 16 28 C 16 28.553 16.448 29 17 29 L 21 29 L 21 40.720703 C 13.032822 39.306373 7 32.380773 7 24 C 7 14.593391 14.593385 7 24 7 z' />
-            </svg>
-          </Link>
-
-          <Link href='/' className='hover:fill-husl-main cursor-pointer duration-200 transition-colors fill-white text-center group px-2'>
-            <svg
-              xmlns='http://www.w3.org/2000/svg'
-              className='group-hover:w-3.5 group-hover:h-3.5 transition-all duration-200 ease-in'
-              viewBox='0 0 24 24'
-              width='12px'
-              height='12px'
-            >
-              <path d='M 8 3 C 5.243 3 3 5.243 3 8 L 3 16 C 3 18.757 5.243 21 8 21 L 16 21 C 18.757 21 21 18.757 21 16 L 21 8 C 21 5.243 18.757 3 16 3 L 8 3 z M 8 5 L 16 5 C 17.654 5 19 6.346 19 8 L 19 16 C 19 17.654 17.654 19 16 19 L 8 19 C 6.346 19 5 17.654 5 16 L 5 8 C 5 6.346 6.346 5 8 5 z M 17 6 A 1 1 0 0 0 16 7 A 1 1 0 0 0 17 8 A 1 1 0 0 0 18 7 A 1 1 0 0 0 17 6 z M 12 7 C 9.243 7 7 9.243 7 12 C 7 14.757 9.243 17 12 17 C 14.757 17 17 14.757 17 12 C 17 9.243 14.757 7 12 7 z M 12 9 C 13.654 9 15 10.346 15 12 C 15 13.654 13.654 15 12 15 C 10.346 15 9 13.654 9 12 C 9 10.346 10.346 9 12 9 z' />
-            </svg>
-          </Link>
-
-          <Link href='/' className='hover:fill-husl-main cursor-pointer duration-200 transition-colors fill-white text-center group px-1'>
-            <svg
-              xmlns='http://www.w3.org/2000/svg'
-              className='group-hover:w-3.5 group-hover:h-3.5 transition-all duration-200 ease-in'
-              viewBox='0 0 24 24'
-              width='12px'
-              height='12px'
-            >
-              <path d='M21,5c0,0-3-1-9-1S3,5,3,5s-1,3-1,7s1,7,1,7s3,1,9,1s9-1,9-1s1-3,1-7S21,5,21,5z M10,15.464V8.536L16,12L10,15.464z' />
-            </svg>
-          </Link>
-        </div>
-
-        <div className={`lg:hidden ${open ? 'flex flex-col pt-5' : 'hidden'} gap-5 col-span-2`}>
-          <Link href='/' className='hover:text-husl-main cursor-pointer duration-500 transition-colors text-white'>
-            <p>Facebook</p>
-          </Link>
-          <Link href='/' className='hover:text-husl-main cursor-pointer duration-500 transition-colors text-white'>
-            <p>Instagram</p>
-          </Link>
-          <Link href='/' className='hover:text-husl-main cursor-pointer duration-500 transition-colors text-white'>
-            <p>Youtube</p>
-          </Link>
-        </div>
+              {link.label}
+            </Link>
+          ))}
+        </nav>
       </div>
     </header>
   )

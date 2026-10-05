@@ -1,21 +1,30 @@
-import Link from "next/link"
+import type { Metadata } from "next";
+import Footer from '../../components/Footer'
+import Navbar from "@/components/Navbar"; // ha máshol van, módosítsd az útvonalat: pl. '../../components/Navbar'
+import "@/app/globals.css";
 
-export default function Layout({
+export const metadata: Metadata = {
+  title: "Bizánci Forrás Egyesület",
+  description: "A keleti keresztény hagyomány, liturgia és kultúra élő forrása.",
+};
+
+export default function RootLayout({
   children,
 }: {
-  children: React.ReactNode
+  children: React.ReactNode;
 }) {
   return (
-      <div className="flex select-none flex-col md:flex-row border border-husl-darker/50 rounded-md p-5 md:p-10 m-2 md:m-10 min-h-screen space-y-7 md:space-y-0 md:space-x-3">
-        <div className="flex relative flex-col space-y-4 md:max-w-sm pr-10 after:bottom-1 after:-mb-4 after:md:mb-0 after:md:right-5 after:w-full after:md:w-px after:h-px after:md:h-full after:bg-husl-main after:absolute md:min-w-fit">
-          <Link className="relative hover:bg-gray/30 rounded-md py-1 px-3 focus:bg-husl-main" href='/about'>Greetings</Link>
-          <Link className="relative hover:bg-gray/30 rounded-md py-1 px-3 focus:bg-husl-main" href='/about/mission'>Mission Statement</Link>
-          <Link className="relative hover:bg-gray/30 rounded-md py-1 px-3 focus:bg-husl-main" href='/about/market'>Market Analysis</Link>
-          <Link className="relative hover:bg-gray/30 rounded-md py-1 px-3 focus:bg-husl-main" href='/about/marketing'>Marketing Mix</Link>
-          <Link className="relative hover:bg-gray/30 rounded-md py-1 px-3 focus:bg-husl-main" href='/about/finance'>Financial Plan</Link>
-          <Link className="relative hover:bg-gray/30 rounded-md py-1 px-3 focus:bg-husl-main" href='/about/team'>Our Team</Link>
-        </div>
-        {children}
-      </div>
-  )
+    <html lang="hu">
+      <body suppressHydrationWarning className="min-h-screen bg-[#fcfbf9] text-stone-900 antialiased selection:bg-amber-100 selection:text-amber-900">
+        {/* Felső rögzített navigációs sáv */}
+        <Navbar />
+
+        {/* pt-20 térköz szükséges, hogy a 80px magas rögzített menü ne takarja ki az oldal tetejét */}
+        <main className="pt-20">
+          {children}
+        </main>
+        <Footer />
+      </body>
+    </html>
+  );
 }
