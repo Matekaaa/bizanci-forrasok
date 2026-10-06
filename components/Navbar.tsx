@@ -2,7 +2,7 @@
 
 import Image from 'next/image'
 import Link from 'next/link'
-import React, { useState } from 'react'
+import { useState, useEffect } from 'react'
 
 const navLinks = [
   { href: '/', label: 'Főoldal' },
@@ -15,6 +15,14 @@ const navLinks = [
 
 export default function Navbar() {
   const [open, setOpen] = useState(false)
+
+  // Prevent background scrolling when mobile menu is open
+  useEffect(() => {
+    if (open) document.body.style.overflow = 'hidden'
+    else document.body.style.overflow = 'unset'
+    
+    return () => { document.body.style.overflow = 'unset' }
+  }, [open])
 
   return (
     <header className="fixed top-0 left-0 w-full z-50 bg-[#fcfbf9]/95 backdrop-blur-sm border-b border-stone-200">
@@ -29,7 +37,7 @@ export default function Navbar() {
           {/* Csak lg (1024px+) mérettől látható pecsét */}
           <div className="hidden lg:block relative shrink-0">
             <Image
-              src="/logo.jpg" // Ellenőrizd a public mappába mentett fájl nevét és kiterjesztését!
+              src="/logo.jpg"
               alt="Bizánci Forrás IC XC NIKA pecsét"
               width={48}
               height={48}
@@ -91,9 +99,11 @@ export default function Navbar() {
         </div>
 
         {/* Mobil hamburger ikon */}
-        <button
-          onClick={() => setOpen(!open)}
-          className="lg:hidden p-2 text-stone-800 hover:text-stone-950 focus:outline-none"
+        <button 
+          onClick={() => setOpen(!open)} 
+          aria-expanded={open} 
+          aria-controls="mobile-menu" 
+          className="lg:hidden p-2 text-stone-800 hover:text-stone-950 focus:outline-none" 
           aria-label="Menü nyitása/zárása"
         >
           <div className="w-6 h-5 flex flex-col justify-between">
@@ -103,9 +113,12 @@ export default function Navbar() {
           </div>
         </button>
       </div>
-
+      
       {/* Lenyíló mobil panel */}
-      <div className={`lg:hidden transition-all duration-300 overflow-hidden border-b border-stone-200 bg-[#fcfbf9] ${open ? 'max-h-96 opacity-100 py-6 px-8' : 'max-h-0 opacity-0 py-0 px-8'}`}>
+      <div 
+        id="mobile-menu" 
+        className={`lg:hidden transition-all duration-300 overflow-hidden border-b border-stone-200 bg-[#fcfbf9] ${open ? 'max-h-96 opacity-100 py-6 px-8' : 'max-h-0 opacity-0 py-0 px-8'}`}
+      >        
         <nav className="flex flex-col space-y-4">
           {navLinks.map((link) => (
             <Link

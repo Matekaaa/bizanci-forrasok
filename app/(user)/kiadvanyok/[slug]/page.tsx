@@ -1,3 +1,5 @@
+import { cache } from 'react'
+import { Metadata } from 'next'
 import Image from 'next/image'
 import Link from 'next/link'
 import { notFound } from 'next/navigation'
@@ -5,7 +7,7 @@ import { PortableText } from '@portabletext/react'
 import { client } from '@/sanity/sanity.client'
 import urlFor from '@/sanity/urlFor'
 
-export const revalidate = 60
+export const revalidate = 2592000
 
 const POST_QUERY = `
   *[_type == "post" && slug.current == $slug][0] {
@@ -24,9 +26,31 @@ interface Props {
   params: Promise<{ slug: string }>
 }
 
-// PortableText renderelő szabályok
+const getPost = cache(async (slug: string) => {
+  return await client.fetch(POST_QUERY, { slug })
+})
+
+export async function generateMetadata({ params }: Props): Promise<Metadata> {
+  const { slug } = await params
+  const post = await getPost(slug)
+
+  if (!post) return {}
+
+  const ogImage = post.mainImage ? urlFor(post.mainImage).width(1200).height(630).url() : undefined
+  const defaultDesc = 'Könyvek, liturgikus fordítások és kiadványok.'
+
+  return {
+    title: `${post.title} | Kiadványok | Bizánci Forrás`,
+    description: defaultDesc,
+    openGraph: {
+      title: `${post.title} | Kiadványok | Bizánci Forrás`,
+      description: defaultDesc,
+      images: ogImage ? [{ url: ogImage }] : [],
+    },
+  }
+}
+
 const ptComponents = {
-  // 1. Szövegbe ágyazott képek
   types: {
     image: ({ value }: any) => {
       if (!value?.asset?._ref) {
@@ -50,8 +74,6 @@ const ptComponents = {
       )
     },
   },
-
-  // 2. Felsorolások (bullet és számozott)
   list: {
     bullet: ({ children }: any) => (
       <ul className="list-disc pl-6 space-y-2 mb-6 text-stone-800 marker:text-amber-900">
@@ -64,13 +86,10 @@ const ptComponents = {
       </ol>
     ),
   },
-
   listItem: {
     bullet: ({ children }: any) => <li className="pl-1 leading-relaxed">{children}</li>,
     number: ({ children }: any) => <li className="pl-1 leading-relaxed">{children}</li>,
   },
-
-  // 3. Bekezdések és címsorok
   block: {
     normal: ({ children }: any) => <p className="mb-4 leading-relaxed">{children}</p>,
     h2: ({ children }: any) => (
@@ -93,7 +112,7 @@ const ptComponents = {
 
 export default async function KiadvanyDetailPage({ params }: Props) {
   const { slug } = await params
-  const post = await client.fetch(POST_QUERY, { slug })
+  const post = await getPost(slug)
 
   if (!post) {
     notFound()
@@ -103,7 +122,6 @@ export default async function KiadvanyDetailPage({ params }: Props) {
     <article className="bg-[#fcfbf9] text-stone-900 py-16 md:py-24">
       <div className="max-w-4xl mx-auto px-6">
         
-        {/* Vissza gomb */}
         <div className="mb-10">
           <Link
             href="/kiadvanyok"
@@ -115,7 +133,6 @@ export default async function KiadvanyDetailPage({ params }: Props) {
 
         <div className="grid grid-cols-1 md:grid-cols-12 gap-10 lg:gap-14 items-start">
           
-          {/* Bal oszlop: Borítókép és rendelési felhívás */}
           <div className="md:col-span-5">
             {post.mainImage && (
               <div className="overflow-hidden rounded-sm relative aspect-[3/4] w-full border border-stone-200 shadow-lg bg-stone-100 mb-8">
@@ -123,6 +140,7 @@ export default async function KiadvanyDetailPage({ params }: Props) {
                   src={urlFor(post.mainImage).width(750).height(1000).url()}
                   alt={post.mainImage.alt || post.title}
                   fill
+                  unoptimized
                   className="object-cover"
                   priority
                 />
@@ -145,7 +163,6 @@ export default async function KiadvanyDetailPage({ params }: Props) {
             </div>
           </div>
 
-          {/* Jobb oszlop: Cím, szerző és a formázott törzsszöveg */}
           <div className="md:col-span-7">
             {post.author?.name && (
               <span className="text-xs uppercase tracking-wider text-amber-900 font-semibold block mb-2">

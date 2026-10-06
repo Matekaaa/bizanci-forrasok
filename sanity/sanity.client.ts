@@ -10,5 +10,5 @@ export const client = createClient({
   projectId,
   dataset,
   apiVersion,
-  useCdn: false, // fejlesztés alatt érdemes false-ra állítani, hogy azonnal látszódjanak a változások
+  useCdn: true, // fejlesztés alatt érdemes false-ra állítani, hogy azonnal látszódjanak a változások
 })
