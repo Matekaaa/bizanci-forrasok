@@ -9,7 +9,7 @@ interface PostLimitSelectProps {
 }
 
 export function PostLimitSelect({
-  defaultLimit = 10,
+  defaultLimit = 6,
   options = [6, 10, 20, 50],
 }: PostLimitSelectProps) {
   const router = useRouter()

@@ -1,5 +1,4 @@
-"use client"
-
+'use client'
 import Image from 'next/image'
 import Link from 'next/link'
 import { useState, useEffect } from 'react'
@@ -9,6 +8,7 @@ const navLinks = [
   { href: '/kiadvanyok', label: 'Kiadványok' },
   { href: '/hirek', label: 'Hírek & Események' },
   { href: '/gondolatok', label: 'Gondolatok' },
+  { href: '/podcast', label: 'Podcastok' },
   { href: '/#tamogatas', label: 'Támogatás (1%)' },
   { href: '/kapcsolat', label: 'Kapcsolat' },
 ]

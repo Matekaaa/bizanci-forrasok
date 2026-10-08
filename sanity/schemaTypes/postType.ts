@@ -47,6 +47,12 @@ export const postType = defineType({
       type: 'datetime',
     }),
     defineField({
+      name: 'audioUrl',
+      title: 'Audiofile Link',
+      type: 'url',
+      description: 'Optional: Link to the audio file for the podcast episode.',
+    }),
+    defineField({
       name: 'body',
       type: 'blockContent',
     }),

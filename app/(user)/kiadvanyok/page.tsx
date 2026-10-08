@@ -87,7 +87,7 @@ export default async function KiadvanyokPage({ searchParams }: PageProps) {
 
         <div className="flex justify-end mb-8">
           <Suspense fallback={null}>
-            <PostLimitSelect defaultLimit={6} options={[6, 12, 24, 48]} />
+            <PostLimitSelect defaultLimit={6} options={[6, 9, 12]} />
           </Suspense>
         </div>
 
