@@ -14,8 +14,8 @@ export default function Home() {
           <span className="h-px w-8 bg-amber-800/60" />
         </div>
 
-        <h1 className="font-serif text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-normal tracking-tight text-stone-900 max-w-4xl mx-auto leading-[1.15] mb-8">
-          A keleti keresztény hagyomány, liturgia és lelkiség élő forrása.
+        <h1 className="font-serif text-2xl sm:text-3xl md:text-4xl lg:text-6xl font-normal tracking-tight text-stone-900 max-w-4xl mx-auto leading-[1.15] mb-8">
+          A keleti keresztény hagyomány, liturgia és lelkiség élő forrása – fedezze fel az ortodox egyház időtlen szellemi és lelki kincseit!
         </h1>
 
         <p className="max-w-2xl mx-auto text-stone-600 text-base md:text-lg leading-relaxed font-serif italic mb-10">
@@ -132,16 +132,15 @@ export default function Home() {
             Támogassa munkánkat adója 1%-ával
           </h4>
           <p className="text-stone-600 text-sm max-w-xl mx-auto mb-6 leading-relaxed">
-            Kiadványaink megjelenését és közhasznú tevékenységünket magánszemélyek támogatásai és az szja 1% felajánlások teszik lehetővé.
+            Kiadványaink megjelenését és közhasznú tevékenységünket magánszemélyek támogatásai és az SZJA 1% felajánlások teszik lehetővé.
           </p>
           <div className="inline-block bg-stone-50 border border-stone-200 px-6 py-3 rounded mb-8 font-mono text-sm text-stone-800">
             <div>
               <span className="font-bold">Adószámunk: </span>
-              <span className="font-mono text-[11px] text-stone-800 select-all block">18265908-1-43</span></div>
+              <span className="font-mono text-[11px] text-stone-800 select-all block">18979615-1-43</span></div>
             <div>
               <span className="font-bold">Bankszámlaszámunk: </span>
-              <span className="font-mono text-[11px] text-stone-800 select-all block">IBAN: HU18 1171 2004 2248 1638 0000 0000 HUF</span>
-              <span className="font-mono text-[11px] text-stone-800 select-all block">IBAN: HU19 1176 3127 3127 9882 0000 0000 EUR</span>
+              <span className="font-mono text-[11px] text-stone-800 select-all block">HU66109180010000009952920006</span>
             </div>
           </div>
               <p className="text-m text-amber-900 font-serif italic pt-1">

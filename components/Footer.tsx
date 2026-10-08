@@ -83,12 +83,11 @@ export default function Footer() {
             <div className="bg-stone-200/50 p-3.5 rounded border border-stone-200 text-xs space-y-2">
               <div>
                 <span className="text-[10px] uppercase tracking-wider text-stone-500 block">Adószám (SZJA 1%)</span>
-                <span className="font-mono font-medium text-stone-900 select-all">18265908-1-43</span>
+                <span className="font-mono font-medium text-stone-900 select-all">18979615-1-43</span>
               </div>
               <div>
                 <span className="text-[10px] uppercase tracking-wider text-stone-500 block">Bankszámlaszám</span>
-                <span className="font-mono text-[11px] text-stone-800 select-all block">IBAN: HU18 1171 2004 2248 1638 0000 0000 HUF</span>
-                <span className="font-mono text-[11px] text-stone-800 select-all block">IBAN: HU19 1176 3127 3127 9882 0000 0000 EUR</span>
+                <span className="font-mono text-[11px] text-stone-800 select-all block">HU66109180010000009952920006</span>
               </div>
               <p className="text-[11px] text-amber-900 font-serif italic pt-1">
                 Köszönjük, ha céljainkat adója 1%-ával támogatja!

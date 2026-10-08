@@ -1,5 +1,4 @@
 import { Suspense } from 'react'
-import Image from 'next/image'
 import { client } from '@/sanity/sanity.client'
 import urlFor from '@/sanity/urlFor'
 import { PostLimitSelect } from '@/components/PostLimitSelect'
@@ -14,7 +13,8 @@ export const metadata = {
   referrer: 'no-referrer',
 }
 
-const PROXY_BASE = 'https://audio-proxy.szendrey-mate.workers.dev/'
+// Remove trailing slash to prevent double slashes in output URLs
+const PROXY_BASE = 'https://audio-proxy.szendrey-mate.workers.dev'
 
 function formatAudioUrl(url: string) {
   if (url.startsWith('https://hangtar.mariaradio.hu/')) {
@@ -30,8 +30,7 @@ const PODCAST_QUERY = `
       title,
       publishedAt,
       audioUrl,
-      mainImage,
-      "authorName": author->name
+      mainImage
     },
     "total": count(*[_type == "post" && defined(slug.current) && "podcast" in categories[]->slug.current])
   }
@@ -43,7 +42,6 @@ interface Episode {
   publishedAt?: string
   audioUrl?: string
   mainImage?: any
-  authorName?: string
 }
 
 interface PageData {
@@ -90,7 +88,7 @@ export default async function HangtarPage({ searchParams }: PageProps) {
           </h1>
 
           <p className="text-stone-600 font-serif italic text-base md:text-lg leading-relaxed">
-            A Mária Rádióban elhangzó Bizánci Forrás adások visszahallgatható gyűjteménye.
+            Az elhangzott Bizánci Forrás podcastek visszahallgatható gyűjteménye.
           </p>
         </div>
 
@@ -121,69 +119,19 @@ export default async function HangtarPage({ searchParams }: PageProps) {
                     })
                   : null
 
+                const imageUrl = episode.mainImage
+                  ? urlFor(episode.mainImage).width(800).height(500).url()
+                  : null
+
                 return (
-                  <article
+                  <AudioPlayer
                     key={episode._id}
-                    className="flex flex-col justify-between border border-stone-200 p-6 bg-white rounded-sm shadow-sm hover:border-stone-400 transition-colors"
-                  >
-                    <div>
-                      {/* Négyzetes borítókép */}
-                      {episode.mainImage ? (
-                        <div className="block mb-5 overflow-hidden rounded-sm relative aspect-square w-full bg-stone-100 shadow-sm">
-                          <Image
-                            src={urlFor(episode.mainImage).width(600).height(600).url()}
-                            alt={episode.title}
-                            fill
-                            unoptimized
-                            sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
-                            className="object-cover"
-                          />
-                        </div>
-                      ) : (
-                        <div className="mb-5 aspect-square w-full bg-stone-100 border border-stone-200 rounded-sm flex items-center justify-center text-stone-400">
-                          <span className="font-serif italic text-sm">Nincs borítókép</span>
-                        </div>
-                      )}
-
-                      {/* Dátum és előadó */}
-                      <div className="flex items-center justify-between text-xs uppercase tracking-wider text-stone-500 mb-2">
-                        {formattedDate && <span>{formattedDate}</span>}
-                        {episode.authorName && (
-                          <span className="font-medium text-amber-900">
-                            {episode.authorName}
-                          </span>
-                        )}
-                      </div>
-
-                      {/* Cím */}
-                      <h2 className="font-serif text-xl font-normal text-stone-900 leading-snug mb-4">
-                        {episode.title}
-                      </h2>
-                    </div>
-
-                    {/* Hanglejátszó az aljára igazítva */}
-                    <div className="pt-4 border-t border-stone-100 mt-4 flex flex-col gap-2">
-                      {episode.audioUrl ? (
-                        <>
-                          <AudioPlayer src={formatAudioUrl(episode.audioUrl)} />
-                          <div className="text-right">
-                            <a
-                              href={episode.audioUrl}
-                              target="_blank"
-                              rel="noopener noreferrer"
-                              className="text-xs text-stone-500 hover:text-amber-900 transition-colors"
-                            >
-                              Megnyitás háttérben &rarr;
-                            </a>
-                          </div>
-                        </>
-                      ) : (
-                        <p className="text-xs text-stone-400 italic text-center py-2">
-                          Nincs hozzárendelt hangfájl.
-                        </p>
-                      )}
-                    </div>
-                  </article>
+                    title={episode.title}
+                    date={formattedDate}
+                    imageUrl={imageUrl}
+                    directUrl={episode.audioUrl}
+                    src={episode.audioUrl ? formatAudioUrl(episode.audioUrl) : ''}
+                  />
                 )
               })}
             </div>
