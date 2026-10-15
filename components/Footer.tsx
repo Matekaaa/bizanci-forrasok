@@ -5,7 +5,7 @@ export default function Footer() {
 
   return (
     <footer className="bg-[#f7f5f0] border-t border-stone-200 text-stone-700 text-sm">
-      <div className="max-w-6xl mx-auto px-6 py-16">
+      <div className="max-w-7xl mx-auto px-6 py-16">
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-10 lg:gap-8">
           
           {/* 1. Oszlop: Arculat & Hitvallás */}
@@ -34,7 +34,7 @@ export default function Footer() {
                     </svg>
                 </a>
                 <a
-                    href="mailto:info@bizanciforras.hu"
+                    href="mailto:bizanciforras@gmail.com"
                     aria-label="Email"
                     className="hover:text-stone-900 transition-colors"
                 >

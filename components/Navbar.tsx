@@ -9,6 +9,7 @@ const navLinks = [
   { href: '/hirek', label: 'Hírek & Események' },
   { href: '/gondolatok', label: 'Gondolatok' },
   { href: '/podcast', label: 'Podcastok' },
+  { href: '/teologia', label: 'Teológia' },
   { href: '/#tamogatas', label: 'Támogatás (1%)' },
   { href: '/kapcsolat', label: 'Kapcsolat' },
 ]
@@ -26,7 +27,7 @@ export default function Navbar() {
 
   return (
     <header className="fixed top-0 left-0 w-full z-50 bg-[#fcfbf9]/95 backdrop-blur-sm border-b border-stone-200">
-      <div className="max-w-6xl mx-auto px-6 h-20 flex items-center justify-between">
+      <div className="max-w-7xl mx-auto px-6 h-20 flex items-center justify-between">
         
         {/* Logó + Pecsét kép (nagy képernyőn) */}
         <Link 
