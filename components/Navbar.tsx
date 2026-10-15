@@ -87,7 +87,7 @@ export default function Navbar() {
             </svg>
           </a>
           <a
-            href="mailto:info@bizanciforras.hu"
+            href="mailto:bizanciforras@gmail.com"
             aria-label="Email"
             className="hover:text-stone-900 transition-colors"
           >

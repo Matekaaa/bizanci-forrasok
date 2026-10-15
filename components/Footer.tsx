@@ -103,8 +103,8 @@ export default function Footer() {
             <div className="space-y-2 text-xs text-stone-600">
               <p>
                 <span className="font-medium text-stone-800">Email:</span>{' '}
-                <a href="mailto:info@bizanciforras.hu" className="hover:underline">
-                  info@bizanciforras.hu
+                <a href="mailto:bizanciforras@gmail.com" className="hover:underline">
+                  bizanciforras@gmail.com
                 </a>
               </p>
               <p>
