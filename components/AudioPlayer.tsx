@@ -110,9 +110,13 @@ export function AudioPlayer({
         />
       )}
 
-      {/* Top row: Title and date */}
+      {/* Top row: Badge, title, date, and external link */}
       <div className="relative z-10 p-5 flex items-start justify-between gap-3">
         <div className="min-w-0 pr-2">
+          <div className="inline-flex items-center gap-1.5 px-2 py-0.5 mb-2 bg-amber-950/70 border border-amber-500/30 rounded text-[10px] tracking-wider uppercase font-semibold text-amber-200 backdrop-blur-sm">
+            <span className="w-1.5 h-1.5 rounded-full bg-amber-400" />
+            Hang
+          </div>
           <h2 className="font-serif text-lg md:text-xl font-normal text-white leading-snug line-clamp-2 drop-shadow-sm">
             {title}
           </h2>
@@ -169,7 +173,7 @@ export function AudioPlayer({
         </button>
       </div>
 
-      {/* Bottom: Timers & edge-to-edge scrubber */}
+      {/* Bottom: Timers & scrubber */}
       <div className="relative z-10 w-full pb-5 px-4 flex flex-col gap-1">
         <div className="flex justify-between items-center px-4 pb-1 text-[11px] font-mono text-stone-300 select-none drop-shadow-sm">
           <span>{formatTime(currentTime)}</span>
